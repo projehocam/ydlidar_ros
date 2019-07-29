@@ -43,7 +43,6 @@ int main(int argc, char * argv[]) {
   
     std::string port;
     int baudrate=230400;
-    int samp_rate = 9;
     std::string frame_id;
     bool reversion, resolution_fixed;
     bool auto_reconnect;
@@ -61,13 +60,12 @@ int main(int argc, char * argv[]) {
     nh_private.param<std::string>("frame_id", frame_id, "laser_frame");
     nh_private.param<bool>("resolution_fixed", resolution_fixed, "true");
     nh_private.param<bool>("auto_reconnect", auto_reconnect, "true");
-    nh_private.param<bool>("reversion", reversion, "false");
+    nh_private.param<bool>("reversion", reversion, "true");
     nh_private.param<double>("angle_max", angle_max , 180);
     nh_private.param<double>("angle_min", angle_min , -180);
     nh_private.param<double>("range_max", max_range , 16.0);
     nh_private.param<double>("range_min", min_range , 0.08);
     nh_private.param<double>("frequency", frequency , 10.0);
-    nh_private.param<int>("samp_rate", samp_rate , 9);
     nh_private.param<std::string>("ignore_array",list,"");
 
     ignore_array = split(list ,',');
@@ -105,7 +103,6 @@ int main(int argc, char * argv[]) {
     laser.setFixedResolution(resolution_fixed);
     laser.setAutoReconnect(auto_reconnect);
     laser.setScanFrequency(frequency);
-    laser.setSampleRate(samp_rate);
     laser.setIgnoreArray(ignore_array);
     bool ret = laser.initialize();
     if (ret) {

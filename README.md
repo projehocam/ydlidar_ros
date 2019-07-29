@@ -6,11 +6,11 @@ YDLIDAR ROS驱动包(V1.4.2)
 怎么构建ROS驱动包
 =====================================================================
     1) Clone this project to your catkin's workspace src folder
-    	(1). git clone https://github.com/YDLIDAR/ydlidar
+    	(1). git clone https://github.com/YDLIDAR/ydlidar_ros
     	(2). git chectout gaussian
     2) Running catkin_make to build ydlidar_node and ydlidar_client
     3) Create the name "/dev/ydlidar" for YDLIDAR
-    --$ roscd ydlidar/startup
+    --$ roscd ydlidar_ros/startup
     --$ sudo chmod 777 ./*
     --$ sudo sh initenv.sh
 
@@ -20,13 +20,13 @@ YDLIDAR ROS驱动包(V1.4.2)
 
 1. 运行YDLIDAR 节点并在RVIZ上显示
 ------------------------------------------------------------
-	roslaunch ydlidar lidar_view.launch
+	roslaunch ydlidar_ros lidar_view.launch
 
 2.运行YDLIDAR 节点在终端上显示
 ------------------------------------------------------------
-	roslaunch ydlidar lidar.launch
+	roslaunch ydlidar_ros lidar.launch
 
-	rosrun ydlidar ydlidar_client
+	rosrun ydlidar_ros ydlidar_client
 
 
 
@@ -40,7 +40,7 @@ frame_id (string, default: laser_frame)
 
     雷达坐标系名称
 
-reversion (bool, default: false)
+reversion (bool, default: true)
 
     是否旋转雷达数据180度
 
@@ -71,10 +71,6 @@ ignore_array (string, default: "")
 
     剔除角度列表
 
-samp_rate (int, default: 9)
-
-    雷达采样频率
-
 frequency (double, default: 10)
 
     雷达扫描频率
@@ -99,6 +95,6 @@ frequency (double, default: 10)
    
    2.雷达启动异常检测
    
-   3.移除别的雷达型号支持, 仅仅支持G4雷达
+   3.移除别的雷达型号支持, 仅仅支持G2A雷达
    
    4.优化turnOn 和 turnOff 
