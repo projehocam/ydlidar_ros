@@ -42,9 +42,7 @@ int main(int argc, char * argv[]) {
     fflush(stdout);
   
     std::string port;
-    int baudrate=230400;
-    bool intensities = false;
-    int samp_rate = 5;
+    int baudrate=115200;
     std::string frame_id;
     bool reversion, resolution_fixed;
     bool auto_reconnect;
@@ -54,7 +52,6 @@ int main(int argc, char * argv[]) {
     std::vector<float> ignore_array;  
     double max_range, min_range;
     double frequency;
-    bool sun_noise, glass_noise;
     int max_abnormal_check_count;
     double OffsetTime = 0.0;
 
@@ -65,8 +62,6 @@ int main(int argc, char * argv[]) {
     nh_private.param<std::string>("frame_id", frame_id, "laser_frame");
     nh_private.param<bool>("resolution_fixed", resolution_fixed, "true");
     nh_private.param<bool>("auto_reconnect", auto_reconnect, "true");
-    nh_private.param<bool>("sun_noise", sun_noise, "true");
-    nh_private.param<bool>("glass_noise", glass_noise, "true");
     nh_private.param<bool>("reversion", reversion, "true");
     nh_private.param<double>("angle_max", angle_max , 180);
     nh_private.param<double>("angle_min", angle_min , -180);
@@ -107,17 +102,13 @@ int main(int argc, char * argv[]) {
     ROS_INFO("[YDLIDAR INFO] Now YDLIDAR ROS SDK VERSION:%s .......", ROSVerision);
     laser.setSerialPort(port);
     laser.setSerialBaudrate(baudrate);
-    laser.setIntensities(intensities);
     laser.setMaxRange(max_range);
     laser.setMinRange(min_range);
     laser.setMaxAngle(angle_max);
     laser.setMinAngle(angle_min);
     laser.setReversion(reversion);
     laser.setAutoReconnect(auto_reconnect);
-    laser.setSunNoise(sun_noise);
-    laser.setGlassNoise(glass_noise);
     laser.setScanFrequency(frequency);
-    laser.setSampleRate(samp_rate);
     laser.setAbnormalCheckCount(max_abnormal_check_count);
     laser.setIgnoreArray(ignore_array);
     laser.setOffsetTime(OffsetTime);
