@@ -8,7 +8,7 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   sensor_msgs
 )
-
+add_definitions(-DHAS_SYSTEM_TIME)
 #add_subdirectory(sdk)
 
 set(SDK_PATH "./sdk/")
