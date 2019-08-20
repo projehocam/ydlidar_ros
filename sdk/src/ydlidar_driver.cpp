@@ -22,7 +22,7 @@ YDlidarDriver::YDlidarDriver():
   isAutoconnting = false;
   scan_node_count = 0;
 
-  m_baudrate = 512000;
+  m_baudrate = 526000;
   isSupportMotorCtrl = true;
   m_sampling_rate = -1;
   scan_frequence = 0;

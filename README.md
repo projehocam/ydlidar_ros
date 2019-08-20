@@ -1,4 +1,4 @@
-YDLIDAR ROS PACKAGE V1.4.1
+YDLIDAR ROS PACKAGE V1.4.2
 =====================================================================
 
 ROS node and test application for YDLIDAR
@@ -80,6 +80,10 @@ frequency (double, default: 8)
 
 Upgrade Log
 =====================================================================
+
+2019-08-20 version:1.4.2
+   
+   2.fixed tx2 baudrate limit.
 
 2019-05-10 version:1.4.1
     

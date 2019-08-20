@@ -14,7 +14,7 @@ using namespace impl;
 -------------------------------------------------------------*/
 CYdLidar::CYdLidar() : lidarPtr(nullptr) {
   m_SerialPort        = "";
-  m_SerialBaudrate    = 512000;
+  m_SerialBaudrate    = 526000;
   m_FixedResolution   = false;
   m_Reversion         = false;
   m_AutoReconnect     = true;
