@@ -57,6 +57,7 @@ int main(int argc, char * argv[]) {
     ros::Publisher scan_pub = nh.advertise<sensor_msgs::LaserScan>("scan", 1000);
     ros::NodeHandle nh_private("~");
     nh_private.param<std::string>("port", port, "/dev/ydlidar"); 
+    nh_private.param<int>("baudrate", baudrate, 230400); 
     nh_private.param<std::string>("frame_id", frame_id, "laser_frame");
     nh_private.param<bool>("resolution_fixed", resolution_fixed, "true");
     nh_private.param<bool>("auto_reconnect", auto_reconnect, "true");
