@@ -36,6 +36,10 @@ port (string, default: /dev/ydlidar)
 
     当前雷达端口号
 
+baudrate (int, default: 230400)
+
+    雷达通讯波特率
+
 frame_id (string, default: laser_frame)
 
     雷达坐标系名称
