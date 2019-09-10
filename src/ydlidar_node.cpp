@@ -46,7 +46,7 @@ int main(int argc, char * argv[]) {
     int samp_rate = 9;
     std::string frame_id;
     bool reversion, resolution_fixed;
-    bool auto_reconnect;
+    bool auto_reconnect, filter_noise;
     double angle_max,angle_min;
     result_t op_result;
     std::string list;
@@ -62,6 +62,7 @@ int main(int argc, char * argv[]) {
     nh_private.param<bool>("resolution_fixed", resolution_fixed, "true");
     nh_private.param<bool>("auto_reconnect", auto_reconnect, "true");
     nh_private.param<bool>("reversion", reversion, "true");
+    nh_private.param<bool>("filter_noise", filter_noise, "true");
     nh_private.param<double>("angle_max", angle_max , 180);
     nh_private.param<double>("angle_min", angle_min , -180);
     nh_private.param<double>("range_max", max_range , 16.0);
@@ -107,6 +108,7 @@ int main(int argc, char * argv[]) {
     laser.setScanFrequency(frequency);
     laser.setSampleRate(samp_rate);
     laser.setIgnoreArray(ignore_array);
+    laser.setFilterNoise(filter_noise);
     bool ret = laser.initialize();
     if (ret) {
         ret = laser.turnOn();

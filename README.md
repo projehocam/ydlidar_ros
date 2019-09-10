@@ -51,6 +51,10 @@ auto_reconnect(bool, default: true)
 
      是否雷达支持热插拔
 
+filter_noise(bool, default: true)
+
+     是否过滤噪声数据
+
 angle_min (double, default: -180)
 
     雷达最小有效角度
