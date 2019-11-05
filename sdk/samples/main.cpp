@@ -9,38 +9,33 @@ using namespace ydlidar;
 #pragma comment(lib, "ydlidar_driver.lib")
 #endif
 
+void LidarCtrlFreqCallback(bool isLowerFreq) {
+  if (isLowerFreq) { //低频模式
+    //设置雷达频率小于6.8Hz
+
+  } else {//高频模式
+    //设置雷达频率大于11.7Hz
+
+  }
+}
+
 int main(int argc, char *argv[]) {
-  printf("__   ______  _     ___ ____    _    ____     _____ _____ __  __ ___  \n");
-  printf("\\ \\ / /  _ \\| |   |_ _|  _ \\  / \\  |  _ \\   |_   _| ____|  \\/  |_ _| \n");
-  printf(" \\ V /| | | | |    | || | | |/ _ \\ | |_) |____| | |  _| | |\\/| || |  \n");
-  printf("  | | | |_| | |___ | || |_| / ___ \\|  _ <_____| | | |___| |  | || |  \n");
-  printf("  |_| |____/|_____|___|____/_/   \\_\\_| \\_\\    |_| |_____|_|  |_|___| \n");
+  printf("__   ______  _     ___ ____    _    ____            \n");
+  printf("\\ \\ / /  _ \\| |   |_ _|  _ \\  / \\  |  _ \\     \n");
+  printf(" \\ V /| | | | |    | || | | |/ _ \\ | |_) |        \n");
+  printf("  | | | |_| | |___ | || |_| / ___ \\|  _ <          \n");
+  printf("  |_| |____/|_____|___|____/_/   \\_\\_| \\_\\      \n");
   printf("\n");
   fflush(stdout);
   std::string port;
-
   ydlidar::init(argc, argv);
-
-  std::map<std::string, std::string> ports =  ydlidar::YDlidarDriver::lidarPortList();
+  std::map<std::string, std::string> ports =
+    ydlidar::YDlidarDriver::lidarPortList();
   std::map<std::string, std::string>::iterator it;
 
   if (ports.size() == 1) {
     it = ports.begin();
-    printf("Lidar[%s] detected, whether to select current radar(yes/no)?:",
-                          it->first.c_str());
-    std::string ok;
-    std::cin >> ok;
-
-    for (size_t i = 0; i < ok.size(); i++) {
-      ok[i] = tolower(ok[i]);
-    }
-
-    if (ok.find("yes") != std::string::npos || atoi(ok.c_str()) == 1) {
-      port = it->second;
-    } else {
-      printf("Please enter the lidar serial port:");
-      std::cin >> port;
-    }
+    port = it->second;
   } else {
     int id = 0;
 
@@ -76,17 +71,17 @@ int main(int argc, char *argv[]) {
     }
   }
 
-  if(!ydlidar::ok()) {
+  if (!ydlidar::ok()) {
     return 0;
   }
+
   CYdLidar laser;
   laser.setSerialPort(port);
   laser.setSerialBaudrate(214285);
   laser.setIntensities(true);//intensity
-  laser.setFixedResolution(false);
   laser.setAutoReconnect(true);//hot plug
 
-  //unit: °
+  //unit: Deg
   laser.setMaxAngle(180);
   laser.setMinAngle(-180);
 
@@ -94,22 +89,70 @@ int main(int argc, char *argv[]) {
   laser.setMinRange(0.1);
   laser.setMaxRange(16.0);
 
+
+  //set the range of angles that need to be removed.
+  //usage: [0, 10, 15,25, 80, 90]
   std::vector<float> ignore_array;
   ignore_array.clear();
   laser.setIgnoreArray(ignore_array);
 
   bool ret = laser.initialize();
+
+  if (ret) {
+    ret = laser.turnOn();
+  }
+
+  //开启修正需注册高低频回调函数, 外部调用设定雷达高低频率
+  laser.RegisterCtrlFreqCallback(std::bind(LidarCtrlFreqCallback,
+                                 std::placeholders::_1));
+
+  //如果要开启进入修正模式并修正, 调用startCorrectionMod函数
+  laser.startCorrectionMod();
+  //修正中可以通过getCheckStateError函数获取状态信息
+  //开启修正模式后, 判断是否修正完成, 调用IsCheckingFinished函数, 返回值是true, 修正完成, 否则,正在修正
+  //laser.IsCheckingFinished();
+  //修正完成后, 判断修正成功还是失败调用getResult函数, 返回值是true, 修正成功, 否则修正失败
+  //laser.getResult();
+
   while (ret && ydlidar::ok()) {
     bool hardError;
     LaserScan scan;
 
     if (laser.doProcessSimple(scan, hardError)) {
-      fprintf(stdout, "Scan received[%llu]: %u ranges is [%f]Hz\n", scan.self_time_stamp,
-              (unsigned int)scan.ranges.size(), 1.0 / scan.config.scan_time);
-      fflush(stdout);
+      if (laser.getCheckFinished() && laser.IsCheckingFinished()) {
+        fprintf(stdout, "Scan received[%lu]: %u ranges is [%f]Hz\n",
+                scan.system_time_stamp,
+                (unsigned int)scan.ranges.size(), 1.0 / scan.config.scan_time);
+        fflush(stdout);
+      }
     } else {
       fprintf(stderr, "Failed to get Lidar Data\n");
       fflush(stderr);
+    }
+
+    if (laser.IsCheckingFinished()) {//修正完成
+      if (laser.getResult()) { //修正成功
+
+      } else {//修正失败
+
+      }
+    } else {//查看修正状态
+      switch (laser.getCheckStateError()) {
+        case CYdLidar::NOERROR:
+
+          break;
+
+        case CYdLidar::FREQUENCYOUT:
+
+          break;
+
+        case CYdLidar::JUMPFREQUENCY:
+
+          break;
+
+        default:
+          break;
+      }
     }
   }
 

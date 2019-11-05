@@ -61,7 +61,7 @@ typedef uint32_t       _size_t;
 typedef uint64_t       _size_t;
 #define THREAD_PROC    __stdcall
 #elif defined (__GNUC__)
-typedef unsigned long  _size_t;
+typedef unsigned long int _size_t;
 #define THREAD_PROC
 #elif defined (__ICCARM__)
 typedef uint32_t       _size_t;
@@ -140,7 +140,8 @@ set_signal_handler(int signal_value, signal_handler_t signal_handler)
     int error_status = strerror_r(errno, error_string, error_length);
 
     if (error_status != 0) {
-      throw std::runtime_error("Failed to get error string for errno: " + std::to_string(errno));
+      throw std::runtime_error("Failed to get error string for errno: " +
+                               std::to_string(errno));
     }
 
 #endif
@@ -245,36 +246,39 @@ inline bool fileExists(const std::string filename) {
 }
 
 template <class Container>
-void split(const std::string& str, Container& cont,
-           const std::string delim = ' ')
-{
-    std::size_t current, previous = 0;
-    current = str.find(delim);
-    while (current != std::string::npos) {
-        cont.push_back(str.substr(previous, current - previous));
-        previous = current + delim.size();
-        current = str.find(delim, previous);
-    }
+void split(const std::string &str, Container &cont,
+           const std::string delim = ' ') {
+  std::size_t current, previous = 0;
+  current = str.find(delim);
+
+  while (current != std::string::npos) {
     cont.push_back(str.substr(previous, current - previous));
+    previous = current + delim.size();
+    current = str.find(delim, previous);
+  }
+
+  cont.push_back(str.substr(previous, current - previous));
 }
 
 // trim from start
 inline std::string &ltrim(std::string &s) {
-    s.erase(s.begin(), std::find_if(s.begin(), s.end(), std::not1(std::ptr_fun<int, int>(std::isspace))));
-    return s;
+  s.erase(s.begin(), std::find_if(s.begin(), s.end(),
+                                  std::not1(std::ptr_fun<int, int>(std::isspace))));
+  return s;
 }
 
 // trim from end
 inline std::string &rtrim(std::string &s) {
-    s.erase(std::find_if(s.rbegin(), s.rend(), std::not1(std::ptr_fun<int, int>(std::isspace))).base(), s.end());
-    return s;
+  s.erase(std::find_if(s.rbegin(), s.rend(),
+                       std::not1(std::ptr_fun<int, int>(std::isspace))).base(), s.end());
+  return s;
 }
 
 // trim from both ends
-inline std::string &trim(std::string &s) // GB works!
-{
-    return ltrim(rtrim(s));
+inline std::string &trim(std::string &s) { // GB works!
+  return ltrim(rtrim(s));
 }
+
 
 
 }

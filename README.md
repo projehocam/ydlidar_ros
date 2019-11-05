@@ -1,4 +1,4 @@
-YDLIDAR ROS PACKAGE V2.0.4
+YDLIDAR ROS PACKAGE V1.4.2
 =====================================================================
 
 ROS node and test application for YDLIDAR

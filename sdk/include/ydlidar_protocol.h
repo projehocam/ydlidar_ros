@@ -74,6 +74,9 @@
 #define LIDAR_CMD_ADD_EXPOSURE       	    0x96
 #define LIDAR_CMD_DIS_EXPOSURE       	    0x97
 
+#define LIDAR_CMD_SET_LOW_SPEED            0xf3
+#define LIDAR_CMD_SET_HIGHT_SPEED          0xf2
+#define LIDAR_CMD_SET_START_ADJ_SPEED      0xf0
 
 #define LIDAR_CMD_SET_HEART_BEAT        0xD9
 #define LIDAR_CMD_SET_SETPOINTSFORONERINGFLAG  0xae
@@ -90,35 +93,58 @@ typedef enum {
 #define PackagePaidBytes 10
 #define PH 0x55AA
 
-#define MAXIMUQUEUE 20
+
+
+
+
+
+#define CHECK_ANGLE_MIN 0
+#define CHECK_ANGLE_MAX 1
+#define SIGMA_ANGLE_MIN 2
+#define SIGMA_ANGLE_MAX 3
+#define SIGN_ANGLE_MIN  4
+#define SIGN_ANGLE_MAX  5
+#define SURE_ANGLE_MIN  6
+#define SURE_ANGLE_MAX  7
+
+#define POSITIVE_VALUE 2000
+#define NEGATIVE_VALUE 1000
+
+
+#define  CHECKINGDISTANCE     0
+#define  FAILEDDISTANCE       2000
+#define  ADJUSTDISTANCE       4000
+#define  SUCCESSDISTANCE      6000
+#define  SAVESUCCESSDISTANCE  8000
+#define  SUREDISTANCE         10000
+#define  MAXDISTANCE          16000
+
+#define MAXCHECKTIMES          4
+#define MAXCHECKIGNOREANGLE    2
+#define MAXCALIBRATIONRANGE    2
+
+enum CheckState {
+  IDEL,
+  NORMAL,
+  CHECKING,
+  CHECK_FAILED,
+  CHECK_ADJUST,
+  CHECK_SUCCESS,
+  CHECK_FININSHED,
+};
 
 #if defined(_WIN32)
 #pragma pack(1)
 #endif
 
-struct odom_t {
-  uint64_t time_now;//系统时间戳
-  float x;
-  float y;
-  float theta;
-};
-
-struct pose2D_t {
-  float x;
-  float y;
-  float theta;
-};
-
 struct node_info {
   uint8_t    sync_flag;  //sync flag
-  uint16_t   sync_quality;//!信号质量
-  uint16_t   angle_q6_checkbit; //!测距点角度
-  uint16_t   distance_q; //! 当前测距点距离
-  uint64_t   stamp; //! 时间戳
-  uint8_t    scan_frequence;//! 特定版本此值才有效,无效值是0
-  float dx;
-  float dy;
-  float dth;
+  uint16_t   sync_quality;//!intensity
+  uint16_t   angle_q6_checkbit; //!angle
+  uint16_t   angle_correct_for_distance; //!angle
+  uint16_t   distance_q; //! distance
+  uint64_t   stamp; //! timestamp
+  uint8_t    scan_frequence;//! scan frequency
 } __attribute__((packed)) ;
 
 struct PackageNode {
@@ -148,23 +174,23 @@ struct node_packages {
 
 
 struct device_info {
-  uint8_t   model; ///< 雷达型号
-  uint16_t  firmware_version; ///< 固件版本号
-  uint8_t   hardware_version; ///< 硬件版本号
-  uint8_t   serialnum[16];    ///< 系列号
+  uint8_t   model; ///< lidar model
+  uint16_t  firmware_version; ///< Firmware Major Version
+  uint8_t   hardware_version; ///< Firmware Minjor Version
+  uint8_t   serialnum[16];    ///< serial number
 } __attribute__((packed)) ;
 
 struct device_health {
-  uint8_t   status; ///< 健康状体
-  uint16_t  error_code; ///< 错误代码
+  uint8_t   status; ///< health status
+  uint16_t  error_code; ///< error code
 } __attribute__((packed))  ;
 
 struct sampling_rate {
-  uint8_t rate;	///< 采样频率
+  uint8_t rate;	///< sampling frequency
 } __attribute__((packed))  ;
 
 struct scan_frequency {
-  uint32_t frequency;	///< 扫描频率
+  uint32_t frequency;	///< scanning frequency
 } __attribute__((packed))  ;
 
 struct scan_rotation {
@@ -172,11 +198,11 @@ struct scan_rotation {
 } __attribute__((packed))  ;
 
 struct scan_exposure {
-  uint8_t exposure;	///< 低光功率模式
+  uint8_t exposure;	///<
 } __attribute__((packed))  ;
 
 struct scan_heart_beat {
-  uint8_t enable;	///< 掉电保护状态
+  uint8_t enable;	///<
 } __attribute__((packed));
 
 struct scan_points {
@@ -209,6 +235,41 @@ struct lidar_ans_header {
 #if defined(_WIN32)
 #pragma pack()
 #endif
+
+/*
+struct LaserPoint {
+  //angle[°]
+  float angle;
+  //range[m]
+  float distance;
+  float intensity;
+//  uint64_t stamp;
+};
+
+//! A struct for returning configuration from the YDLIDAR
+struct LaserConfig {
+  //! Start angle for the laser scan [rad].  0 is forward and angles are measured clockwise when viewing YDLIDAR from the top.
+  float min_angle;
+  //! Stop angle for the laser scan [rad].   0 is forward and angles are measured clockwise when viewing YDLIDAR from the top.
+  float max_angle;
+  //! Scan resoltuion [s]
+  float time_increment;
+  //! Time between scans[s]
+  float scan_time;
+  //! Minimum range [m]
+  float min_range;
+  //! Maximum range [m]
+  float max_range;
+};
+
+struct LaserScan {
+  //! Array of laser data point
+  std::vector<LaserPoint> data;
+  //! System time when first range was measured in nanoseconds
+  uint64_t system_time_stamp;
+  //! Configuration of scan
+  LaserConfig config;
+};*/
 
 //! A struct for returning configuration from the YDLIDAR
 struct LaserConfig {

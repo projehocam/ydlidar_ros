@@ -2,6 +2,7 @@ var searchData=
 [
   ['save',['Save',['../class_c_simple_ini_templ.html#a5fea5d590edbb5eef694991c7c355915',1,'CSimpleIniTempl::Save(OutputWriter &amp;a_oOutput, bool a_bAddSignature=false) const '],['../class_c_simple_ini_templ.html#af944674fb44473ede150a3bcdc103d63',1,'CSimpleIniTempl::Save(std::string &amp;a_sBuffer, bool a_bAddSignature=false) const ']]],
   ['savefile',['SaveFile',['../class_c_simple_ini_templ.html#a1449e083d968790ef7479de24edddba0',1,'CSimpleIniTempl::SaveFile(const char *a_pszFile, bool a_bAddSignature=true) const '],['../class_c_simple_ini_templ.html#af3f26b331a0f9d7f071d7b4aa8038758',1,'CSimpleIniTempl::SaveFile(FILE *a_pFile, bool a_bAddSignature=false) const ']]],
+  ['saverobotoffsetangle',['saveRobotOffsetAngle',['../class_c_yd_lidar.html#a1cc84e839b7dbbf215c85c1eda0e0458',1,'CYdLidar']]],
   ['sendbreak',['sendBreak',['../classserial_1_1_serial.html#ab35e474beb136258cbeb04978be27455',1,'serial::Serial']]],
   ['sendcommand',['sendCommand',['../classydlidar_1_1_y_dlidar_driver.html#ab096ecdc3642c04e3e8b000e210c0962',1,'ydlidar::YDlidarDriver']]],
   ['senddata',['sendData',['../classydlidar_1_1_y_dlidar_driver.html#a998ba4b05927d19e8a0d4d29d3d47656',1,'ydlidar::YDlidarDriver']]],
@@ -14,6 +15,7 @@ var searchData=
   ['setdoublevalue',['SetDoubleValue',['../class_c_simple_ini_templ.html#af92ba0b8067553ab693c62a370de6534',1,'CSimpleIniTempl']]],
   ['setdtr',['setDTR',['../classserial_1_1_serial.html#a4c8a44a1e6ce42f8cb521d9a4e10bc59',1,'serial::Serial::setDTR()'],['../classydlidar_1_1_y_dlidar_driver.html#a88de43cf13058344fc83389cb9df7e21',1,'ydlidar::YDlidarDriver::setDTR()']]],
   ['setflowcontrol',['setFlowcontrol',['../classserial_1_1_serial.html#a76e56ce22e2706b8954a1dc9c5188c92',1,'serial::Serial']]],
+  ['setignorearray',['setIgnoreArray',['../classydlidar_1_1_y_dlidar_driver.html#a60dd7a2a881495dc525694579692db55',1,'ydlidar::YDlidarDriver']]],
   ['setintensities',['setIntensities',['../classydlidar_1_1_y_dlidar_driver.html#afc543dbbe1c5e37afc366e3c92203533',1,'ydlidar::YDlidarDriver']]],
   ['setlongvalue',['SetLongValue',['../class_c_simple_ini_templ.html#ab2238be407232e4bba0f1343e4793e4e',1,'CSimpleIniTempl']]],
   ['setmultikey',['SetMultiKey',['../class_c_simple_ini_templ.html#ac3cfaf072a64f960bdcb7ddf2edc52b6',1,'CSimpleIniTempl']]],

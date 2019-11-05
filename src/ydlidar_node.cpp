@@ -17,8 +17,17 @@
 
 using namespace ydlidar;
 
-#define ROSVerision "2.0.4"
+#define ROSVerision "1.4.2"
 
+void LidarCtrlFreqCallback(bool isLowerFreq) {
+  if (isLowerFreq) { //低频模式
+    //设置雷达频率小于6.8Hz
+
+  } else {//高频模式
+    //设置雷达频率大于11.7Hz
+
+  }
+}
 
 std::vector<float> split(const std::string &s, char delim) {
     std::vector<float> elems;
@@ -106,6 +115,17 @@ int main(int argc, char * argv[]) {
         ROS_ERROR("Error initializing YDLIDAR Comms and Status!!!");
     }
     ros::Rate rate(20);
+    //开启修正需注册高低频回调函数, 外部调用设定雷达高低频率
+    laser.RegisterCtrlFreqCallback(std::bind(LidarCtrlFreqCallback,
+                                 std::placeholders::_1));
+
+    //如果要开启进入修正模式并修正, 调用startCorrectionMod函数
+    //laser.startCorrectionMod();
+    //修正中可以通过getCheckStateError函数获取状态信息
+    //开启修正模式后, 判断是否修正完成, 调用IsCheckingFinished函数, 返回值是true, 修正完成, 否则,正在修正
+    //laser.IsCheckingFinished();
+    //修正完成后, 判断修正成功还是失败调用getResult函数, 返回值是true, 修正成功, 否则修正失败
+   //laser.getResult();
 
     while (ret&&ros::ok()) {
         bool hardError;
@@ -129,6 +149,30 @@ int main(int argc, char * argv[]) {
             scan_msg.intensities =  scan.intensities;
             scan_pub.publish(scan_msg);
         }  
+        if (laser.IsCheckingFinished()) {//修正完成
+          if (laser.getResult()) { //修正成功
+
+          } else {//修正失败
+
+          }
+        } else {//查看修正状态
+          switch (laser.getCheckStateError()) {
+           case CYdLidar::NOERROR:
+
+          break;
+
+          case CYdLidar::FREQUENCYOUT:
+
+          break;
+
+          case CYdLidar::JUMPFREQUENCY:
+
+          break;
+
+          default:
+          break;
+         }
+        }
         rate.sleep();
         ros::spinOnce();
     }
