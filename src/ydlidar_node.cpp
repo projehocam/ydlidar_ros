@@ -64,13 +64,13 @@ int main(int argc, char *argv[]) {
   nh_private.param<std::string>("frame_id", frame_id, "laser_frame");
   nh_private.param<bool>("resolution_fixed", resolution_fixed, "true");
   nh_private.param<bool>("auto_reconnect", auto_reconnect, "true");
-  nh_private.param<bool>("reversion", reversion, "false");
+  nh_private.param<bool>("reversion", reversion, "true");
   nh_private.param<double>("angle_max", angle_max, 180);
   nh_private.param<double>("angle_min", angle_min, -180);
-  nh_private.param<int>("samp_rate", samp_rate, 18);
+  nh_private.param<int>("samp_rate", samp_rate, 20);
   nh_private.param<double>("range_max", max_range, 64.0);
   nh_private.param<double>("range_min", min_range, 0.08);
-  nh_private.param<double>("frequency", _frequency, 8.0);
+  nh_private.param<double>("frequency", _frequency, 10.0);
   nh_private.param<std::string>("ignore_array", list, "");
 
   ignore_array = split(list, ',');
@@ -87,8 +87,8 @@ int main(int argc, char *argv[]) {
 
   CYdLidar laser;
 
-  if (_frequency < 5) {
-    _frequency = 8.0;
+  if (_frequency < 3) {
+    _frequency = 10.0;
   }
 
   if (_frequency > 12) {
