@@ -1,4 +1,4 @@
-YDLIDAR ROS PACKAGE V1.4.1
+YDLIDAR ROS PACKAGE V1.4.2
 =====================================================================
 
 ROS node and test application for YDLIDAR
@@ -80,6 +80,12 @@ frequency (double, default: 8)
 
 Upgrade Log
 =====================================================================
+
+2019-11-27 version:1.4.2
+    
+  1.define USE_LOCK_FILE macros 
+
+  2.use steady time for wait.
 
 2019-05-10 version:1.4.1
     
