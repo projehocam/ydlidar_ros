@@ -45,6 +45,7 @@ int main(int argc, char *argv[]) {
   ros::init(argc, argv, "ydlidar_node");
 
   std::string port;
+  int baudrate = 512000;
   std::string model;
   std::string frame_id;
   bool reversion, resolution_fixed;
@@ -61,6 +62,7 @@ int main(int argc, char *argv[]) {
   ros::Publisher scan_pub = nh.advertise<sensor_msgs::LaserScan>("scan", 1000);
   ros::NodeHandle nh_private("~");
   nh_private.param<std::string>("port", port, "/dev/ydlidar");
+  nh_private.param<int>("baudrate", baudrate, 512000);
   nh_private.param<std::string>("frame_id", frame_id, "laser_frame");
   nh_private.param<bool>("resolution_fixed", resolution_fixed, "true");
   nh_private.param<bool>("auto_reconnect", auto_reconnect, "true");
@@ -102,6 +104,7 @@ int main(int argc, char *argv[]) {
   }
 
   laser.setSerialPort(port);
+  laser.setSerialBaudrate(baudrate);
   laser.setMaxRange(max_range);
   laser.setMinRange(min_range);
   laser.setMaxAngle(angle_max);
