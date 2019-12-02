@@ -17,7 +17,7 @@
 
 using namespace ydlidar;
 
-#define ROSVerision "1.4.1"
+#define ROSVerision "1.4.2"
 
 
 std::vector<float> split(const std::string &s, char delim) {
@@ -69,7 +69,7 @@ int main(int argc, char * argv[]) {
     nh_private.param<double>("range_min", min_range , 0.08);
     nh_private.param<double>("frequency", frequency , 10.0);
     nh_private.param<double>("OffsetTime", OffsetTime , 0.0);
-    nh_private.param<int>("max_abnormal_check_count", max_abnormal_check_count , 2);
+    nh_private.param<int>("max_abnormal_check_count", max_abnormal_check_count , 4);
     nh_private.param<std::string>("ignore_array",list,"");
 
     ignore_array = split(list ,',');
@@ -143,11 +143,7 @@ int main(int argc, char * argv[]) {
             if(resolution_fixed) {
                 fixed_size = laser.getFixedSize();
             }
-            if(scan.config.max_angle - scan.config.min_angle == 2*M_PI) {
-                scan_msg.angle_increment = (scan.config.max_angle - scan.config.min_angle) / (fixed_size);
-            } else {
-                scan_msg.angle_increment = (scan.config.max_angle - scan.config.min_angle) / (fixed_size - 1);
-            }
+            scan_msg.angle_increment = (scan.config.max_angle - scan.config.min_angle) / (fixed_size - 1);
             int index = 0;
             scan_msg.ranges.resize(fixed_size, std::numeric_limits<float>::infinity());
             scan_msg.intensities.resize(fixed_size, 0);

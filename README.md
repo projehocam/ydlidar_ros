@@ -1,4 +1,4 @@
-YDLIDAR ROS PACKAGE V1.4.1
+YDLIDAR ROS PACKAGE V1.4.2
 =====================================================================
 
 ROS node and test application for YDLIDAR
@@ -92,6 +92,10 @@ max_abnormal_check_count (int, default: 2)
 
 Upgrade Log
 ------------------------------------------------------------
+
+2019-12-02 version:1.4.2
+
+   1.support new G4C 
 
 2019-05-13 version:1.4.1
 
