@@ -17,7 +17,7 @@
 
 using namespace ydlidar;
 
-#define ROSVerision "1.4.2"
+#define ROSVerision "1.4.3"
 
 
 std::vector<float> split(const std::string &s, char delim) {
@@ -52,6 +52,7 @@ int main(int argc, char * argv[]) {
     std::vector<float> ignore_array;  
     double max_range, min_range;
     double frequency;
+    int samp_rate = 5;
 
     ros::NodeHandle nh;
     ros::Publisher scan_pub = nh.advertise<sensor_msgs::LaserScan>("scan", 1000);
@@ -64,10 +65,11 @@ int main(int argc, char * argv[]) {
     nh_private.param<bool>("reversion", reversion, "true");
     nh_private.param<double>("angle_max", angle_max , 180);
     nh_private.param<double>("angle_min", angle_min , -180);
-    nh_private.param<double>("range_max", max_range , 12.0);
+    nh_private.param<double>("range_max", max_range , 16.0);
     nh_private.param<double>("range_min", min_range , 0.1);
     nh_private.param<double>("frequency", frequency , 10.0);
     nh_private.param<std::string>("ignore_array",list,"");
+    nh_private.param<int>("samp_rate", samp_rate, samp_rate); 
 
     ignore_array = split(list ,',');
     if(ignore_array.size()%2){
@@ -105,6 +107,7 @@ int main(int argc, char * argv[]) {
     laser.setAutoReconnect(auto_reconnect);
     laser.setScanFrequency(frequency);
     laser.setIgnoreArray(ignore_array);
+    laser.setSampleRate(samp_rate);
     bool ret = laser.initialize();
     if (ret) {
         ret = laser.turnOn();
