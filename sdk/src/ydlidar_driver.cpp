@@ -1165,7 +1165,7 @@ result_t YDlidarDriver::startScan(bool force, uint32_t timeout) {
     if (response_header.size < 5) {
       return RESULT_FAIL;
     }
-
+    startMotor();
     ans = this->createThread();
     return ans;
   }
@@ -1182,8 +1182,9 @@ result_t YDlidarDriver::stopScan(uint32_t timeout) {
 
   ScopedLocker l(_lock);
   sendCommand(LIDAR_CMD_FORCE_STOP);
+  delay(5);
   sendCommand(LIDAR_CMD_STOP);
-  delay(10);
+  delay(5);
   return RESULT_OK;
 }
 
