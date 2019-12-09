@@ -114,7 +114,7 @@ int main(int argc, char * argv[]) {
     laser.setScanFrequency(frequency);
     laser.setIgnoreArray(ignore_array);
     laser.setSampleRate(samp_rate);
-    laser.setInverted(inverted)
+    laser.setInverted(inverted);
     laser.setSingleChannel(isSingleChannel);
      laser.setTOFLidar(isTOFLidar);
     bool ret = laser.initialize();
