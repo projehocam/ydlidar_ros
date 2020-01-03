@@ -966,11 +966,11 @@ inline bool isSupportScanFrequency(int model, double frequency) {
   bool ret = false;
 
   if (model >= YDlidarDriver::YDLIDAR_TG15) {
-    if (3 <= frequency && frequency <= 12) {
+    if (3 <= frequency && frequency <= 15.7) {
       ret = true;
     }
   } else {
-    if (5 <= frequency && frequency <= 12) {
+    if (5 <= frequency && frequency <= 15.7) {
       ret = true;
     }
   }

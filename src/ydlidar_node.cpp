@@ -92,8 +92,8 @@ int main(int argc, char * argv[]) {
     if(frequency<3){
        frequency = 7.0; 
     }
-    if(frequency>12){
-        frequency = 12;
+    if(frequency>15.7){
+        frequency = 15.7;
     }
     if(angle_max < angle_min){
         double temp = angle_max;
