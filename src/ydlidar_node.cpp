@@ -69,7 +69,7 @@ int main(int argc, char * argv[]) {
     nh_private.param<double>("angle_max", angle_max , 180);
     nh_private.param<double>("angle_min", angle_min , -180);
     nh_private.param<double>("range_max", max_range , 64.0);
-    nh_private.param<double>("range_min", min_range , 0.05);
+    nh_private.param<double>("range_min", min_range , 0.01);
     nh_private.param<double>("frequency", frequency , 10.0);
     nh_private.param<std::string>("ignore_array",list,"");
     nh_private.param<int>("samp_rate", samp_rate, samp_rate);
