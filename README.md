@@ -1,4 +1,4 @@
-YDLIDAR ROS驱动包(V1.4.4)
+YDLIDAR ROS驱动包(V1.4.5)
 =====================================================================
 
 
@@ -36,9 +36,9 @@ port (string, default: /dev/ydlidar)
 
     当前雷达端口号
 
-baudrate (int, default:230400)
+baudrate (int, default:512000)
 
-    当前雷达波特率（G2 G2A: 230400, G2C:115200)
+    当前雷达波特率（TG30: 512000)
 
 frame_id (string, default: laser_frame)
 
@@ -67,7 +67,7 @@ range_min (double, default: 0.08)
 
     雷达最小有效距离
 
-range_max (double, default: 16.0)
+range_max (double, default: 64.0)
 
     雷达最大有效距离
 
@@ -79,23 +79,29 @@ frequency (double, default: 10)
 
     雷达扫描频率
 
-samp_rate (int, default: 5)
+samp_rate (int, default: 20)
 
     雷达采样频率
 
 isSingleChannel(bool, default: false)
 
-    是否是单通讯雷达(S2, X2, X2L)
+    是否是单通讯雷达(TX8, TX20)
 
 isTOFLidar(bool, default: false)
 
-    是否是单通信TOF雷达(TX8, TX20)
+    是否是TOF雷达(TG30, TG50, TX20)
 
 
 
 
 更新日志
 =====================================================================
+
+2020-01-04 version:1.4.5
+
+  1.支持新协议TOF雷达
+
+  1.移除旧协议TOF雷达
 
 2019-12-03 version:1.4.4
 

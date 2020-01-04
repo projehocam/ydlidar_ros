@@ -17,7 +17,7 @@
 
 using namespace ydlidar;
 
-#define ROSVerision "1.4.4"
+#define ROSVerision "1.4.5"
 
 
 std::vector<float> split(const std::string &s, char delim) {
@@ -42,7 +42,7 @@ int main(int argc, char * argv[]) {
     fflush(stdout);
   
     std::string port;
-    int baudrate=230400;
+    int baudrate=512000;
     std::string frame_id;
     bool reversion, resolution_fixed;
     bool auto_reconnect;
@@ -52,7 +52,7 @@ int main(int argc, char * argv[]) {
     std::vector<float> ignore_array;  
     double max_range, min_range;
     double frequency;
-    int samp_rate = 5;
+    int samp_rate = 20;
     bool inverted = true;
     bool isSingleChannel = false;
     bool isTOFLidar = false;
@@ -61,15 +61,15 @@ int main(int argc, char * argv[]) {
     ros::Publisher scan_pub = nh.advertise<sensor_msgs::LaserScan>("scan", 1000);
     ros::NodeHandle nh_private("~");
     nh_private.param<std::string>("port", port, "/dev/ydlidar"); 
-    nh_private.param<int>("baudrate", baudrate, 230400); 
+    nh_private.param<int>("baudrate", baudrate, 512000); 
     nh_private.param<std::string>("frame_id", frame_id, "laser_frame");
     nh_private.param<bool>("resolution_fixed", resolution_fixed, "true");
     nh_private.param<bool>("auto_reconnect", auto_reconnect, "true");
     nh_private.param<bool>("reversion", reversion, "true");
     nh_private.param<double>("angle_max", angle_max , 180);
     nh_private.param<double>("angle_min", angle_min , -180);
-    nh_private.param<double>("range_max", max_range , 32.0);
-    nh_private.param<double>("range_min", min_range , 0.1);
+    nh_private.param<double>("range_max", max_range , 64.0);
+    nh_private.param<double>("range_min", min_range , 0.05);
     nh_private.param<double>("frequency", frequency , 10.0);
     nh_private.param<std::string>("ignore_array",list,"");
     nh_private.param<int>("samp_rate", samp_rate, samp_rate);
@@ -116,7 +116,7 @@ int main(int argc, char * argv[]) {
     laser.setSampleRate(samp_rate);
     laser.setInverted(inverted);
     laser.setSingleChannel(isSingleChannel);
-     laser.setTOFLidar(isTOFLidar);
+    laser.setLidarType(!isTOFLidar);
     bool ret = laser.initialize();
     if (ret) {
         ret = laser.turnOn();

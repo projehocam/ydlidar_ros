@@ -71,8 +71,8 @@ class YDLIDAR_API CYdLidar {
                         private) ///<
   PropertyBuilderByName(bool, SingleChannel,
                         private) ///< 是否是单通信雷达
-  PropertyBuilderByName(bool, TOFLidar,
-                        private) ///< 是否是TOF雷达
+  PropertyBuilderByName(int, LidarType,
+                        private) ///< 雷达类型
 
 
  public:
@@ -182,6 +182,7 @@ class YDLIDAR_API CYdLidar {
   uint64_t m_PointTime;
   uint64_t last_node_time;
   node_info *global_nodes;
+  std::map<int, int> SampleRateMap;
 
 };	// End of class
 
