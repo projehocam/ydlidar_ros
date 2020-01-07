@@ -55,7 +55,7 @@ int main(int argc, char * argv[]) {
     int samp_rate = 20;
     bool inverted = true;
     bool isSingleChannel = false;
-    bool isTOFLidar = false;
+    bool isTOFLidar = true;
 
     ros::NodeHandle nh;
     ros::Publisher scan_pub = nh.advertise<sensor_msgs::LaserScan>("scan", 1000);
