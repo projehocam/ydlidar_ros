@@ -1,4 +1,4 @@
-![YDLIDAR](image/index-X4.jpg  "YDLIDAR_X4")
+![YDLIDAR](image/YDLidar.jpg  "YDLIDAR")
 
 YDLIDAR SDK [![Build Status](https://travis-ci.org/cansik/sdk.svg?branch=samsung)](https://travis-ci.org/cansik/sdk) [![Build status](https://ci.appveyor.com/api/projects/status/2w9xm1dbafbi7xc0?svg=true)](https://ci.appveyor.com/project/cansik/sdk) [![codebeat badge](https://codebeat.co/badges/3d8634b7-84eb-410c-b92b-24bf6875d8ef)](https://codebeat.co/projects/github-com-cansik-sdk-samsung)
 =====================================================================
@@ -20,11 +20,10 @@ Release Notes
 -------------------------------------------------------------------------------------------------------------------------------------------------------
 | Title      |  Version |  Data |
 | :-------- | --------:|  :--: |
-| SDK     |  1.4.5 |   2020-01-04  |
+| SDK     |  1.4.5 |   2020-01-05  |
 
 
-- [feature] Supports new and old protocol tof lidar.
-- [feature] Display of version number and serial number of single communication lidar.
+- [feature] Supports S2 5k for single channel lidar.
 
 
 
@@ -36,17 +35,18 @@ Dataset
 
 | Model      |  Baudrate |  Sampling Frequency | Range(m)  | Scanning Frequency(HZ) | Working temperature(°C) | Laser power max(mW) | voltage(V) | Current(mA) | Intensity
 | :-------- | --------:|--------:|  --------:| --------:|--------:| --------:| --------:| --------:| :--: |
-| TG15   |  512000 |   20000  |  0.1-15   |3-15.7|0-50| ~5|4.8-5.2|400-480| false |
-| TG30   |  512000 |   4000  |  0.1-30   |3-15.7|0-50| ~5|4.8-5.2|400-480| false |
-| TG50   |  512000 |   4000  |  0.1-50   |3-15.7|0-50| ~5|4.8-5.2|400-480| false |
-| G2A    |  230400 |   5000  |  0.12-12   |5-12|0-50| ~5|4.8-5.2|400-480| false |
-| G2      |  230400 |   5000  |  0.12-12   |5-12|0-50| ~5|4.8-5.2|400-480| true |
-| G2C   |  230400 |   4000  |  0.12-12   |5-12|0-50| ~5|4.8-5.2|400-480| false |
+| S2-5K   |  128000 |   5000  |  0.12-8   |4-8|0-50| ~5|4.8-5.2|400-480| false |
 
 How to build YDLIDAR SDK samples
 ---------------
 
     $ git clone https://github.com/ydlidar/sdk
+
+    $ cd sdk
+
+    $ git checkout S2_5K
+
+    $ cd ..
 
     $ mkdir build
 
@@ -80,13 +80,12 @@ You should see YDLIDAR's scan result in the console:
 	[YDLIDAR] Connection established in [/dev/ttyUSB0][512000]:
 	Firmware version: 1.3
 	Hardware version: 1
-	Model: TG30
+	Model: S2
 	Serial: 2020010200010001
-	[YDLIDAR INFO] Current Sampling Rate : 20K
-	[YDLIDAR INFO] Current Scan Frequency : 15.000000Hz
+	[YDLIDAR INFO] Current Sampling Rate : 5K
 	[YDLIDAR INFO] Now YDLIDAR is scanning ......
-	Scan received: 1329 ranges
-	Scan received: 1329 ranges
+	Scan received: 612 ranges
+	Scan received: 613 ranges
 	
 	
 
@@ -192,5 +191,6 @@ Upgrade Log
    
    Contact EAI
 ---------------
+![Development Path](image/EAI.png)
 
 If you have any extra questions, please feel free to [contact us](http://www.ydlidar.cn/cn/contact)

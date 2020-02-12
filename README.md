@@ -1,3 +1,4 @@
+![YDLIDAR](sdk/image/YDLidar.jpg  "YDLIDAR")
 YDLIDAR ROS PACKAGE(V1.4.5)
 =====================================================================
 
@@ -15,7 +16,7 @@ How to Create a ROS workspace
 
     1) Clone this project to your catkin's workspace src folder
     	(1). git clone https://github.com/YDLIDAR/ydlidar_ros
-    	(2). git chectout master
+    	(2). git chectout S2-5K
     2) Running catkin_make to build ydlidar_node and ydlidar_client
     3) Create the name "/dev/ydlidar" for YDLIDAR
     --$ roscd ydlidar_ros/startup
@@ -69,7 +70,7 @@ port (string, default: /dev/ydlidar)
 
     serial port name used in your system. 
 
-baudrate (int, default: 230400)
+baudrate (int, default: 128000)
 
     serial port baud rate. 
     
@@ -200,3 +201,16 @@ Change Log
    3.Only support G2A LiDAR
    
    4.optimal turnOn and  turnOff 
+
+# Support
+
+You can get support from YDLidar with the following methods:
+* Send email to support@ydlidar.com with a clear description of your problem and your setup
+* Github Issues
+
+## Contact EAI
+
+![Development Path](sdk/image/EAI.png)
+
+If you have any extra questions, please feel free to [contact us](http://www.ydlidar.cn/cn/contact)
+
