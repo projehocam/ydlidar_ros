@@ -19,7 +19,7 @@ Note: Set ROS Workspace Environment Variables
 	$echo "source ~/ydlidar_ros_ws/devel/setup.bash" >> ~/.bashrc
 	$source ~/.bashrc
 	
-## Step4:Configure LiDAR [paramters](launch/lidar.launch)
+## Step4:Configure LiDAR [paramters](../launch/lidar.launch)
 	<launch>
   	<node name="ydlidar_node"  pkg="ydlidar_ros"  type="ydlidar_node" output="screen" respawn="false" >
     		<param name="port"         		type="string" value="/dev/ydlidar"/>  
