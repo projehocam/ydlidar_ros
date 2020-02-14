@@ -18,17 +18,24 @@ FILE(GLOB SDK_SRC
   "${SDK_PATH}/src/*.cpp"
   "${SDK_PATH}/src/*.c"
 )
+set(LASER_FUSE_PATH "./laser_fuse")
+
+FILE(GLOB LASER_FUSE_SRC 
+  "${LASER_FUSE_PATH}/*.cpp"
+)
 
 catkin_package()
 
 include_directories(
   ${catkin_INCLUDE_DIRS}
+  ${PROJECT_SOURCE_DIR}
   ${PROJECT_SOURCE_DIR}/src
+  ${PROJECT_SOURCE_DIR}/laser_fuse
   ${PROJECT_SOURCE_DIR}/sdk/include
   ${PROJECT_SOURCE_DIR}/sdk/src
 )
 
-add_executable(ydlidar_node src/ydlidar_node.cpp  ${SDK_SRC})
+add_executable(ydlidar_node src/ydlidar_node.cpp  ${SDK_SRC} ${LASER_FUSE_SRC})
 add_executable(ydlidar_client src/ydlidar_client.cpp)
 
 target_link_libraries(ydlidar_node

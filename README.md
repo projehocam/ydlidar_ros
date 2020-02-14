@@ -71,6 +71,8 @@ Note: Download and Build details [here](docs/ydlidar.md)
 | `ignore_array`      | String                  	| LiDAR filtering angle area, default: ""      			|
 | `samp_rate`       	| int                  	| sampling rate of lidar, default: 20      				|
 | `frequency`       	| float                  	| scan frequency of lidar,default: 10.0      			|
+| `NoiseFilter`       	| bool                  	| LiDAR Data Noise Filter,default: false      			|
+
 
 </center>
 
@@ -164,6 +166,10 @@ samp_rate (int, default: 9)
 frequency (double, default: 10)
 
     the LIDAR scanning frequency.
+
+NoiseFilter (bool, default: false)
+
+    the LIDAR Data Noise Filter.
 
 
 ## Change Log

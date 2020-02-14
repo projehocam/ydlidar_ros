@@ -10,6 +10,7 @@
 #include "ros/ros.h"
 #include "sensor_msgs/LaserScan.h"
 #include "CYdLidar.h"
+#include "laser_fuse/laser_fuse.h"
 #include <vector>
 #include <iostream>
 #include <string>
@@ -56,6 +57,7 @@ int main(int argc, char * argv[]) {
     bool inverted = true;
     bool isSingleChannel = false;
     bool isTOFLidar = true;
+    bool NoiseFilter = false;
 
     ros::NodeHandle nh;
     ros::Publisher scan_pub = nh.advertise<sensor_msgs::LaserScan>("scan", 1000);
@@ -75,6 +77,8 @@ int main(int argc, char * argv[]) {
     nh_private.param<int>("samp_rate", samp_rate, samp_rate);
     nh_private.param<bool>("isSingleChannel", isSingleChannel, isSingleChannel);
     nh_private.param<bool>("isTOFLidar", isTOFLidar, isTOFLidar);
+    nh_private.param<bool>("NoiseFilter", NoiseFilter, NoiseFilter);
+
  
 
     ignore_array = split(list ,',');
@@ -127,6 +131,7 @@ int main(int argc, char * argv[]) {
         ROS_ERROR("Error initializing YDLIDAR Comms and Status!!!");
     }
     ros::Rate rate(20);
+    LaserFuse m_laser_fuse;
 
     while (ret&&ros::ok()) {
         bool hardError;
@@ -154,6 +159,9 @@ int main(int argc, char * argv[]) {
                      scan_msg.ranges[index] = scan.points[i].range;
                      scan_msg.intensities[index] = scan.points[i].intensity;
                 }
+            }
+            if(NoiseFilter) {
+                m_laser_fuse.processLaser(scan, scan_msg); 
             }
             scan_pub.publish(scan_msg);
         }  

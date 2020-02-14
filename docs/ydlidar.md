@@ -36,6 +36,7 @@ Note: Set ROS Workspace Environment Variables
     		<param name="frequency"    		type="double" value="10"/>
 			<param name="isSingleChannel"   type="bool"   value="false"/>
     		<param name="isTOFLidar"    	type="bool"   value="true"/>
+			<param name="NoiseFilter"    	type="bool"   value="false"/>
  	 </node>
   	<node pkg="tf" type="static_transform_publisher" name="base_link_to_laser4"
     args="0.2245 0.0 0.2 0.0 0.0  0.0 /base_footprint /laser_frame 40" />

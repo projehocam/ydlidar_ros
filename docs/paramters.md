@@ -18,6 +18,7 @@
 | `ignore_array`      | String                  	| LiDAR filtering angle area, default: ""      			|
 | `samp_rate`       	| int                  	| sampling rate of lidar, default: 20      				|
 | `frequency`       	| float                  	| scan frequency of lidar,default: 10.0      			|
+| `NoiseFilter`       	| bool                  	| LiDAR Data Noise Filter,default: false      			|
 
 ##Baudrate Table
 
