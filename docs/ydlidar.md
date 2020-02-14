@@ -1,16 +1,16 @@
-#　YDLIDAR ROS Package Download and Build
-##　Step1: create a ROS workspace, if there is no workspace, othereise Skip to Step2
-####　Linux/OS X
+# YDLIDAR ROS Package Download and Build
+## Step1: create a ROS workspace, if there is no workspace, othereise Skip to Step2
+#### Linux/OS X
 	$mkdir -p ~/ydlidar_ros_ws/src
 	$cd ~/ydlidar_ros_ws/src
-####　Windows
+#### Windows
 	$md \dev\ydlidar_ros_ws\src
 	$cd \dev\ydlidar_ros_ws\src
 	
-##　Step2: clone ydlidar ros package
+## Step2: clone ydlidar ros package
 	$git clone https://github.com/YDLIDAR/ydlidar_ros
 	
-##　Step3: Build [ydlidar_ros](https://github.com/YDLIDAR/ydlidar_ros) package
+## Step3: Build [ydlidar_ros](https://github.com/YDLIDAR/ydlidar_ros) package
 	$cd ..
 	$catkin_make
 	
@@ -19,7 +19,7 @@ Note: Set ROS Workspace Environment Variables
 	$echo "source ~/ydlidar_ros_ws//devel/setup.bash" >> ~/.bashrc
 	$source ~/.bashrc
 	
-##　Step4:Configure LiDAR [paramters](../launch/lidar.launch)
+## Step4:Configure LiDAR [paramters](../launch/lidar.launch)
 	<launch>
   	<node name="ydlidar_node"  pkg="ydlidar_ros"  type="ydlidar_node" output="screen" respawn="false" >
     		<param name="port"         type="string" value="/dev/ydlidar"/>  
@@ -42,12 +42,12 @@ Note: Set ROS Workspace Environment Variables
 
 Note: How to configure paramters, see [here](paramters.md)
   
-##　Step5:Create serial port Alias[/dev/ydlidar] 
+## Step5:Create serial port Alias[/dev/ydlidar] 
 	$chmod 0777 src/ydlidar_ros/startup/*
 	$sudo sh src/ydlidar_ros/startup/initenv.sh
 Note: After completing the previous operation, replug the LiDAR again.
   
-##　Step6:Run ydlidar_ros node
+## Step6:Run ydlidar_ros node
 	
 	$roslaunch ydlidar_ros lidar.launch
 
