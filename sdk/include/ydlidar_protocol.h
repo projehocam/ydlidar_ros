@@ -149,7 +149,7 @@ struct PackageNode {
 } __attribute__((packed));
 
 struct TofPackageNode {
-  uint8_t PakageSampleQuality;
+  uint16_t PakageSampleQuality;
   uint16_t PakageSampleDistance;
 } __attribute__((packed));
 
