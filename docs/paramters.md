@@ -38,7 +38,7 @@
 |TG15/TG30/TG50                         				| false			|
 |TX8/TX20         							| true			|
 
-##isToFLidar Table
+##　isToFLidar Table
 
 | LiDAR                									| isTOFLidar             | 
 |-----------------------------------------------------------------------|-----------------------|
