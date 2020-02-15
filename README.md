@@ -1,6 +1,6 @@
 ![YDLIDAR](sdk/image/TG30.png  "TG30")
 
-# YDLIDAR ROS PACKAGE(V1.4.5)
+# YDLIDAR ROS PACKAGE(V1.4.6)
 
 ## Dataset 
 |LIDAR      | Model  |  Baudrate |  SampleRate(K) | Range(m)  		   |  Frequency(HZ) | Intenstiy(bit) | SingleChannel | voltage(V)|
@@ -72,6 +72,8 @@ Note: Download and Build details [here](docs/ydlidar.md)
 | `samp_rate`       	| int                  	| sampling rate of lidar, default: 20      				|
 | `frequency`       	| float                  	| scan frequency of lidar,default: 10.0      			|
 | `NoiseFilter`       	| bool                  	| LiDAR Data Noise Filter,default: false      			|
+| `intensity`       	| bool                  	| LiDAR has intensity, default: false      			|
+
 
 
 </center>
@@ -171,8 +173,16 @@ NoiseFilter (bool, default: false)
 
     the LIDAR Data Noise Filter.
 
+intensity (bool, default: false)
+
+    indicated whether the LIDAR has intensity.
+
 
 ## Change Log
+
+2020-02-15 version:1.4.6
+
+  1.Support intensity for TG
 
 2020-01-04 version:1.4.5
 

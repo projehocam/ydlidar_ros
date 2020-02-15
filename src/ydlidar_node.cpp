@@ -18,7 +18,7 @@
 
 using namespace ydlidar;
 
-#define ROSVerision "1.4.5"
+#define ROSVerision "1.4.6"
 
 
 std::vector<float> split(const std::string &s, char delim) {
@@ -58,6 +58,7 @@ int main(int argc, char * argv[]) {
     bool isSingleChannel = false;
     bool isTOFLidar = true;
     bool NoiseFilter = false;
+    bool intensity  = false;
 
     ros::NodeHandle nh;
     ros::Publisher scan_pub = nh.advertise<sensor_msgs::LaserScan>("scan", 1000);
@@ -78,6 +79,7 @@ int main(int argc, char * argv[]) {
     nh_private.param<bool>("isSingleChannel", isSingleChannel, isSingleChannel);
     nh_private.param<bool>("isTOFLidar", isTOFLidar, isTOFLidar);
     nh_private.param<bool>("NoiseFilter", NoiseFilter, NoiseFilter);
+    nh_private.param<bool>("intensity", intensity, intensity);
 
  
 
@@ -121,6 +123,7 @@ int main(int argc, char * argv[]) {
     laser.setInverted(inverted);
     laser.setSingleChannel(isSingleChannel);
     laser.setLidarType(!isTOFLidar);
+    laser.setIntensity(intensity);
     bool ret = laser.initialize();
     if (ret) {
         ret = laser.turnOn();
