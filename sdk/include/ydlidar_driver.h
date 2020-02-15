@@ -535,6 +535,7 @@ class YDlidarDriver {
   int sample_rate;                  ///<
 
   node_package package;             ///< 带信号质量协议包
+  node_package tof_package;             ///< TOF带信号质量协议包
   node_packages packages;           ///< 不带信好质量协议包
 
   uint16_t package_Sample_Index;    ///< 包采样点索引

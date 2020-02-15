@@ -148,6 +148,11 @@ struct PackageNode {
   uint16_t PakageSampleDistance;
 } __attribute__((packed));
 
+struct TofPackageNode {
+  uint8_t PakageSampleQuality;
+  uint16_t PakageSampleDistance;
+} __attribute__((packed));
+
 struct node_package {
   uint16_t  package_Head;
   uint8_t   package_CT;
@@ -156,6 +161,16 @@ struct node_package {
   uint16_t  packageLastSampleAngle;
   uint16_t  checkSum;
   PackageNode  packageSample[PackageSampleMaxLngth];
+} __attribute__((packed)) ;
+
+struct tof_node_package {
+  uint16_t  package_Head;
+  uint8_t   package_CT;
+  uint8_t   nowPackageNum;
+  uint16_t  packageFirstSampleAngle;
+  uint16_t  packageLastSampleAngle;
+  uint16_t  checkSum;
+  TofPackageNode  packageSample[PackageSampleMaxLngth];
 } __attribute__((packed)) ;
 
 struct node_packages {

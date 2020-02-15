@@ -76,6 +76,8 @@ CYdLidar::CYdLidar(): lidarPtr(nullptr) {
   last_node_time = getTime();
   global_nodes = new node_info[YDlidarDriver::MAX_SCAN_NODES];
   m_ParseSuccess = false;
+  m_Intensity    = false;
+
 }
 
 /*-------------------------------------------------------------
@@ -588,6 +590,9 @@ bool CYdLidar::getDeviceInfo() {
   lidar_model = devinfo.model;
   model = lidarModelToString(devinfo.model);
   bool intensity = hasIntensity(devinfo.model);
+  if(isTOFLidar(m_LidarType)) {
+    intensity = m_Intensity;
+  }
   defalutSampleRate = lidarModelDefaultSampleRate(devinfo.model);
 
   std::string serial_number;
