@@ -27,3 +27,8 @@
 *.exe
 *.out
 *.app
+
+# IDE
+.vscode/*
+CMakeLists.txt.*
+
