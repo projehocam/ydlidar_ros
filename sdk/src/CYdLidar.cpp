@@ -61,6 +61,7 @@ CYdLidar::CYdLidar(): lidarPtr(nullptr) {
   m_MinRange          = 0.01;
   m_SampleRate        = 5;
   defalutSampleRate   = 5;
+  m_UserSampleRate    = 5;
   m_ScanFrequency     = 10;
   isScanning          = false;
   m_FixedSize         = 720;
@@ -274,6 +275,7 @@ bool  CYdLidar::doProcessSimple(LaserScan &outscan,
       }
 
     }
+
     handleDeviceInfoPackage(count);
 
     return true;
@@ -590,9 +592,11 @@ bool CYdLidar::getDeviceInfo() {
   lidar_model = devinfo.model;
   model = lidarModelToString(devinfo.model);
   bool intensity = hasIntensity(devinfo.model);
-  if(isTOFLidar(m_LidarType)) {
+
+  if (isTOFLidar(m_LidarType)) {
     intensity = m_Intensity;
   }
+
   defalutSampleRate = lidarModelDefaultSampleRate(devinfo.model);
 
   std::string serial_number;
@@ -610,6 +614,8 @@ bool CYdLidar::getDeviceInfo() {
                        Minjor & 0xff);
     m_lidarHardVer = std::to_string(devinfo.hardware_version & 0xff);
   }
+
+  m_UserSampleRate = m_SampleRate;
 
   if (hasSampleRate(devinfo.model)) {
     checkSampleRate();
@@ -725,7 +731,8 @@ bool CYdLidar::CalculateSampleRate(int count, double scan_time) {
     cnt++;
     SampleRateMap[samplerate] =  cnt;
 
-    if (isValidSampleRate(SampleRateMap) || defalutSampleRate == samplerate) {
+    if (isValidSampleRate(SampleRateMap) || defalutSampleRate == samplerate ||
+        m_UserSampleRate == samplerate) {
       m_SampleRate = samplerate;
       m_PointTime = 1e9 / (m_SampleRate * 1000);
       lidarPtr->setPointTime(m_PointTime);
@@ -746,7 +753,7 @@ bool CYdLidar::CalculateSampleRate(int count, double scan_time) {
     if (scan_time > 0.04 && scan_time < 0.4) {
       int samplerate = static_cast<int>((count / scan_time + 500) / 1000);
 
-      if (defalutSampleRate == samplerate) {
+      if (defalutSampleRate == samplerate || m_UserSampleRate == samplerate) {
         m_SampleRate = samplerate;
         m_PointTime = 1e9 / (m_SampleRate * 1000);
         lidarPtr->setPointTime(m_PointTime);

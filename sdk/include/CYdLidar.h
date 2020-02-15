@@ -217,5 +217,6 @@ class YDLIDAR_API CYdLidar {
   std::string m_lidarHardVer;
   std::string m_lidarSerialNum;
   int defalutSampleRate;
+  int m_UserSampleRate;
 };	// End of class
 
