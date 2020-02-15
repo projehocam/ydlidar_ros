@@ -16,7 +16,7 @@
 	
 Note: Set ROS Workspace Environment Variables
 
-	$echo "source ~/ydlidar_ros_ws//devel/setup.bash" >> ~/.bashrc
+	$echo "source ~/ydlidar_ros_ws/devel/setup.bash" >> ~/.bashrc
 	$source ~/.bashrc
 	
 ## Step4:Configure LiDAR [paramters](../launch/lidar.launch)
