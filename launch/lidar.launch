@@ -11,6 +11,7 @@
     <param name="range_min"    type="double" value="0.01" />
     <param name="range_max"    type="double" value="64.0" />
     <param name="ignore_array" type="string" value="" />
+    <param name="samp_rate"    type="int"    value="20"/>
     <param name="frequency"    type="double" value="10"/>
     <param name="NoiseFilter"  type="bool"   value="false"/>
     <param name="intensity"    type="bool"   value="false"/>
