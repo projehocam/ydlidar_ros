@@ -854,6 +854,7 @@ result_t YDlidarDriver::waitScanData(node_info *nodebuffer, size_t &count,
     ans = waitPackage(&node, timeout - waitTime);
 
     if (!IS_OK(ans)) {
+      count = recvNodeCount;
       return ans;
     }
 
