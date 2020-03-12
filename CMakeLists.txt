@@ -4,6 +4,7 @@ SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 #add_definitions(-std=c++11) # Use C++11
 
 find_package(catkin REQUIRED COMPONENTS
+  message_generation
   rosconsole
   roscpp
   sensor_msgs
@@ -24,7 +25,18 @@ FILE(GLOB LASER_FUSE_SRC
   "${LASER_FUSE_PATH}/*.cpp"
 )
 
-catkin_package()
+
+
+add_message_files(DIRECTORY msg
+  FILES
+  LaserFan.msg
+)
+
+generate_messages(DEPENDENCIES
+  std_msgs
+)
+catkin_package(
+CATKIN_DEPENDS message_generation)
 
 include_directories(
   ${catkin_INCLUDE_DIRS}
