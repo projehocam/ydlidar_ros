@@ -1005,10 +1005,12 @@ result_t YDlidarDriver::waitPackage(node_info *node, uint32_t timeout) {
       }
     } else {
       (*node).distance_q2 = packages.packageSampleDistance[package_Sample_Index];
-      (*node).sync_quality = ((uint16_t)(0xfc |
+      if(!isTOFLidar(m_LidarType)) {
+        (*node).sync_quality = ((uint16_t)(0xfc |
                                          packages.packageSampleDistance[package_Sample_Index] &
                                          0x0003)) << LIDAR_RESP_MEASUREMENT_QUALITY_SHIFT;
-
+      }
+      
     }
 
     if ((*node).distance_q2 != 0) {
