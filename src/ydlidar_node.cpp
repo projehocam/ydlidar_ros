@@ -9,6 +9,7 @@
 
 #include "ros/ros.h"
 #include "sensor_msgs/LaserScan.h"
+#include "ydlidar_ros/LaserFan.h"
 #include "CYdLidar.h"
 #include "laser_fuse/laser_fuse.h"
 #include <vector>
@@ -62,6 +63,7 @@ int main(int argc, char * argv[]) {
 
     ros::NodeHandle nh;
     ros::Publisher scan_pub = nh.advertise<sensor_msgs::LaserScan>("scan", 1000);
+    ros::Publisher laser_fan_pub = nh.advertise<ydlidar_ros::LaserFan>("laser_fan", 1000);
     ros::NodeHandle nh_private("~");
     nh_private.param<std::string>("port", port, "/dev/ydlidar"); 
     nh_private.param<int>("baudrate", baudrate, 512000); 
@@ -141,11 +143,13 @@ int main(int argc, char * argv[]) {
         LaserScan scan;
         if(laser.doProcessSimple(scan, hardError )){
             sensor_msgs::LaserScan scan_msg;
+            ydlidar_ros::LaserFan fan;
             ros::Time start_scan_time;
             start_scan_time.sec = scan.stamp/1000000000ul;
             start_scan_time.nsec = scan.stamp%1000000000ul;
             scan_msg.header.stamp = start_scan_time;
             scan_msg.header.frame_id = frame_id;
+            fan.header = scan_msg.header;
             scan_msg.angle_min =(scan.config.min_angle);
             scan_msg.angle_max = (scan.config.max_angle);
             scan_msg.angle_increment = (scan.config.angle_increment);
@@ -153,6 +157,12 @@ int main(int argc, char * argv[]) {
             scan_msg.time_increment = scan.config.time_increment;
             scan_msg.range_min = (scan.config.min_range);
             scan_msg.range_max = (scan.config.max_range);
+            fan.angle_min =(scan.config.min_angle);
+            fan.angle_max = (scan.config.max_angle);
+            fan.scan_time = scan.config.scan_time;
+            fan.time_increment = scan.config.time_increment;
+            fan.range_min = (scan.config.min_range);
+            fan.range_max = (scan.config.max_range);
             int size = (scan.config.max_angle - scan.config.min_angle)/ scan.config.angle_increment + 1;
             scan_msg.ranges.resize(size);
             scan_msg.intensities.resize(size);
@@ -162,11 +172,16 @@ int main(int argc, char * argv[]) {
                      scan_msg.ranges[index] = scan.points[i].range;
                      scan_msg.intensities[index] = scan.points[i].intensity;
                 }
+                fan.angles.push_back(scan.points[i].angle);
+                fan.ranges.push_back(scan.points[i].range);
+                fan.intensities.push_back(scan.points[i].intensity);
+
             }
             if(NoiseFilter) {
                 m_laser_fuse.processLaser(scan, scan_msg); 
             }
             scan_pub.publish(scan_msg);
+            laser_fan_pub.publish(fan);
         }  
         rate.sleep();
         ros::spinOnce();
