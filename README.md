@@ -1,5 +1,5 @@
 ![YDLIDAR](sdk/image/YDLidar.jpg  "YDLIDAR")
-# YDLIDAR ROS PACKAGE(V1.4.5)
+# YDLIDAR ROS PACKAGE(V1.4.6)
 
 ## Dataset 
 |LIDAR      | Model  |  Baudrate |  SampleRate(K) | Range(m)  		   |  Frequency(HZ) | Intenstiy(bit) | SingleChannel | voltage(V)|
@@ -21,6 +21,8 @@
 | G4B       | 17		|  512000   |   10           |  0.12~16         | 5~12        	  | true(10)       | false    	  | 4.8~5.2   |
 | G4C       | 18		|  115200   |   4            |  0.1~12		      | 5~12           | false          | false    	  | 4.8~5.2   |
 | [G1](http://www.ydlidar.com/products/view/13.html)        | 19		|  230400   |   9            |  0.28~16         | 5~12      	  | false          | false    	  | 4.8~5.2   |
+|  G5       | 5	   |  230400   |   9/8/4        |  0.28/0.26/0.1~16| 5~12        	  | false          | false    	  | 4.8~5.2   |
+|  G7       | 13     |  512000   |   18/16/8      |  0.28/0.26/0.1~25| 5~12        	  | false          | false    	  | 4.8~5.2   |
 | [TX8](http://www.ydlidar.com/products/view/8.html)    　 | 100	   |  115200   |   4            |  0.1~8      	   | 4~8(PWM)       | false          | true      	  | 4.8~5.2   |
 | [TX20](http://www.ydlidar.com/products/view/9.html)    　| 100	   |  115200   |   4            |  0.1~20      	   | 4~8(PWM)       | false          | true     	  | 4.8~5.2   |
 | TG15    　| 100	   |  512000   |   20/18/10     |  0.05~15      	| 3~16      	  | false          | false    	  | 4.8~5.2   |
@@ -83,13 +85,13 @@ After your workspace has been built and sourced:
 roslaunch ydlidar_ros G2C.launch
 ```
 Note: You can alse Update the paramters in [lidar.launch](launch/lidar.launch) to G2C LiDAR paramters.
-#### 3.4 Running the YDLidar G4
+#### 3.4 Running the YDLidar G4/G5
 After your workspace has been built and sourced:
 ```
 roslaunch ydlidar_ros G4.launch
 ```
 Note: You can alse Update the paramters in [lidar.launch](launch/lidar.launch) to G4 LiDAR paramters.
-#### 3.5 Running the YDLidar G6
+#### 3.5 Running the YDLidar G6/G7
 After your workspace has been built and sourced:
 ```
 roslaunch ydlidar_ros G6.launch
@@ -182,8 +184,8 @@ baudrate (int, default: 230400)
 |F4/S2/X2/X2L/S4/TX8/TX20/G4C 		| 115200			|
 |X4                   					| 128000			|
 |S4B                         				| 153600			|
-|G1/G2/R2/G4/G4PRO/F4PRO         	| 230400			|
-|G6/TG15/TG30/TG50			 	| 512000			|
+|G1/G2/R2/G4/G5/G4PRO/F4PRO         	| 230400			|
+|G6/G7/TG15/TG30/TG50			 	| 512000			|
 
 frame_id (string, default: laser_frame)
 
@@ -195,7 +197,7 @@ isSingleChannel (bool, default: false)
     
 | LiDAR                							| isSingleChannel    | 
 |-----------------------------------------------------------|-----------------------|
-|G1/G2/G4/G6/F4/F4PRO/S4/S4B/X4/R2/G4C 	| false			|
+|G1/G2/G4/G5/G6/G7/F4/F4PRO/S4/S4B/X4/R2/G4C 	| false			|
 |S2/X2/X2L                   						| true			|
 |TG15/TG30/TG50                         				| false			|
 |TX8/TX20         							| true			|
@@ -214,7 +216,7 @@ reversion (bool, default: false)
     
 | LiDAR                								| reversion              | 
 |-----------------------------------------------------------------|-----------------------|
-|G1/G2/G4/G6/F4/F4PRO//R2/G4C/TG15/TG30/TG50 	| true			|
+|G1/G2/G4/G5/G6/G7/F4/F4PRO//R2/G4C/TG15/TG30/TG50 	| true			|
 |S2/X2/X2L/S4/S4B/X4/TX8/TX20                   			| false			|
 
 
@@ -224,7 +226,7 @@ isTOFLidar (bool, default: false)
     
 | LiDAR                									| isToFLidar             | 
 |-----------------------------------------------------------------------|-----------------------|
-|G1/G2/G4/G6/F4/F4PRO/S4/S4B/X4/R2/G4C/S2/X2/X2L 	| false			|
+|G1/G2/G4/G5/G6/G7/F4/F4PRO/S4/S4B/X4/R2/G4C/S2/X2/X2L 	| false			|
 |TG15/TG30/TG50/TX8/TX20                   				| true			|
 
 
@@ -256,9 +258,9 @@ samp_rate (int, default: 9)
     
 | LiDAR                		| samp_rate             | 
 |-----------------------------|------------------------|
-|G4/F4                    		| 4,8,9			 |
+|G4/F4/G5                    		| 4,8,9			 |
 |F4PRO                   		| 4,6   			 |
-|G6                         		| 8,16,18			 |
+|G6/G7                         		| 8,16,18			 |
 |G1/G2/R2/X4         		| 5				 |
 |S4/S4B/G4C/TX8/TX20 	|4			 	 |
 |S2                    		| 3			 	 |
@@ -268,41 +270,6 @@ samp_rate (int, default: 9)
 frequency (double, default: 10)
 
     the LIDAR scanning frequency.
-
-
-## Change Log
-
-2020-01-04 version:1.4.5
-
-  1.Support Old protocol TOF LiDAR
-
-  1.Serial number and version can be obtained for single channel LiDAR.
-
-2019-12-03 version:1.4.4
-
-  1.support all standards lidar
-
-2019-12-03 version:1.4.3
-
-  1.Support G4, G6,G1, TG LiDAR
-
-2019-07-16 version:1.4.2
-
-  1.Scan Frequency Offset
-
-2019-03-25 version:1.4.1
-
-   1.memory leak.
-
-2019-03-25 version:1.4.0
-
-   1.Fixed timestamp error
-   
-   2.LIDAR Startup abnormal
-   
-   3.Only support G2A LiDAR
-   
-   4.optimal turnOn and  turnOff 
 
 ## Contact EAI
 ![Development Path](sdk/image/EAI.png)
