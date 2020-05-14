@@ -35,9 +35,9 @@ add_message_files(DIRECTORY msg
 generate_messages(DEPENDENCIES
   std_msgs
 )
-catkin_package(
-CATKIN_DEPENDS message_generation)
-
+catkin_package(CATKIN_DEPENDS
+	roscpp sensor_msgs message_runtime
+	)
 include_directories(
   ${catkin_INCLUDE_DIRS}
   ${PROJECT_SOURCE_DIR}
@@ -49,6 +49,12 @@ include_directories(
 
 add_executable(ydlidar_node src/ydlidar_node.cpp  ${SDK_SRC} ${LASER_FUSE_SRC})
 add_executable(ydlidar_client src/ydlidar_client.cpp)
+
+#---------------------------------------------------------------------------------------
+# add projects that depend on
+#---------------------------------------------------------------------------------------
+add_dependencies(ydlidar_node ${PROJECT_NAME}_generate_messages_cpp)
+
 
 target_link_libraries(ydlidar_node
    ${catkin_LIBRARIES} 
